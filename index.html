@@ -1,0 +1,41 @@
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+ <meta charset="UTF-8"> 
+ <title>Calculator</title>
+ <link rel="stylesheet" type="text/css" href="calc.css" />
+ <script src="calc.js"></script>
+</head>
+
+<body onload = 'setup()'>
+Reverse Polish Notation<br>
+To calculate A + B follow the sequence.<br>
+<ol>
+<li>input A from botton</li>
+<li>Specify Enter</li>
+<li>input B from botton</li>
+<li>input Operation(+) from botton</li>
+</ol>
+<input type="text" id="display" value="Welcome!">
+<input type="button" class="n_key" value="1" onclick="number(event);">
+<input type="button" class="n_key" value="2" onclick="number(event);">
+<input type="button" class="n_key" value="3" onclick="number(event);">
+<input type="button" class="n_key" value="4" onclick="number(event);">
+<input type="button" class="n_key" value="5" onclick="number(event);">
+<input type="button" class="n_key" value="6" onclick="number(event);">
+<input type="button" class="n_key" value="7" onclick="number(event);">
+<input type="button" class="n_key" value="8" onclick="number(event);">
+<input type="button" class="n_key" value="9" onclick="number(event);">
+<input type="button" class="n_key" value="0" onclick="number(event);">
+<input type="button" class="op_key" value="Enter" onclick="operate(event);">
+<input type="button" class="op_key" value="Clear" onclick="operate(event);">
+<input type="button" class="op_key" value="+" onclick="operate(event);">
+<input type="button" class="op_key" value="-" onclick="operate(event);">
+<input type="button" class="op_key" value="*" onclick="operate(event);">
+<input type="button" class="op_key" value="/" onclick="operate(event);">
+<input type="button" class="op_key" value="+/-" onclick="operate(event);">
+<br>
+小数点の扱い、スタックの表示など未実装
+</body>
+</html>
