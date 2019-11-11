@@ -1,9 +1,12 @@
 let disp;
+let stackValue = "";
+let calcOperator = "";
 let fClear = true;
 let buffer = [];
 
 function setup() {
   disp = document.getElementById("display");
+  stackText = document.getElementById("stackText");
 }
 
 function add(v) {
@@ -20,6 +23,8 @@ function add(v) {
 
 function clear() {
   fClear = true;
+  stackValue = "";
+  stackText.innerHTML = "";
   add("");
 }
 
@@ -32,6 +37,8 @@ function calc(func) {
     if (v == null) return;
     let a = Number(v);
     let b = Number(disp.value);
+    stackValue = stackValue + disp.value + " " + calcOperator;
+    stackText.innerHTML = stackValue;
     let c = func(a, b);
     disp.value = String(c);
 }
@@ -46,14 +53,20 @@ function operate(event) {
 
   if (cmd == "Enter") {
     buffer.push(disp.value);
+    stackValue = stackValue + disp.value + " ";
+    stackText.innerHTML = stackValue;
     fClear = true;
   } else if (cmd == "+") {
+      calcOperator = "+ ";
       calc(function(a,b){return a+b;});
   } else if (cmd == "-") {
+      calcOperator = "- ";
       calc(function(a,b){return a-b;});
   } else if (cmd == "*") {
+      calcOperator = "* ";
       calc(function(a,b){return a*b;});
   } else if (cmd == "/") {
+      calcOperator = "/ ";
       calc(function(a,b){return a/b;});
   } else if (cmd == "+/-") {
       plusMinus();
