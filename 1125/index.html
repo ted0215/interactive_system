@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <title>Object の扱いのサンプル</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+    <p id="p1" draggable="false" ondragstart="dragstart_handler(event);">
+        Canvasにオブジェクト化したテキストを表示する<br />
+        -テキストオブジェクトはそれぞれが座標を持ち、乱数で決められた速度で動く<br />
+        -すべてのオブジェクトは list という配列に追加されて管理されている<br />
+        -ボタンを押すと、入力された(長さ１以上の)文字列をもつテキストオブジェクトが決められた位置に追加される<br />
+    </p>
+
+    <canvas id="canvas1" width="400" height="300"></canvas><br />
+    <input id="txt" type="text" value="◯">
+    <input id="number" type="text" value="1">
+    <input id="add" type="button" value="add text" onclick="addText();">←押してください
+
+    <script type="text/javascript">
+        // canvas要素のDOMオブジェクトを取得
+        var canvas = document.getElementById("canvas1");
+        // 描画コンテキストを取得する
+        var context = canvas.getContext("2d");
+        var lastID = -1;
+        var list = [];
+
+        var mouseX = 0;
+        var mouseY = 0;
+
+        window.onmousemove = movehandler;
+
+        function textObject(text, x, y) {
+            this.x = x;
+            this.y = y;
+            this.dx = 1;
+            this.dy = 1;
+            this.id = ++lastID;
+
+            this.txt = text; // 文字列は値渡し
+
+            // オブジェクトの表示
+            this.display = function (ctx) {
+                ctx.fillText(this.id.toString(10) + ":" + this.txt, this.x, this.y);
+            }
+
+            // 位置決め
+            this.place = function (x, y) {
+                this.x = x;
+                this.y = y;
+            }
+
+            // 壁にぶつかると速度が乱数によって決められた値に変化する
+            this.move = function () {
+                this.x += this.dx;
+                this.y += this.dy;
+                if (this.x < 0) {
+                    this.dx = Math.floor(Math.random() * 3) + 1;
+
+                } else if (this.x > canvas.width) {
+                    eraseObject(this);
+                    console.log(list);
+                    this.dx = -1 * (Math.floor(Math.random() * 3) + 1);
+                }
+                if (this.y < 0) {
+                    this.dy = Math.floor(Math.random() * 3) + 1;
+                } else if (this.y > canvas.height) {
+                    this.dy = -1 * (Math.floor(Math.random() * 3) + 1);
+                }
+            }
+        }
+
+        // obj を表示されるオブジェクトに追加する
+        function addObject(obj) {
+            list.push(obj);
+        }
+
+        function eraseObject(obj) {
+            list.splice(obj.id, 1);
+            for (var i=0; i<list.length; i++) {
+                list[i].id -= 1;
+            }
+            console.log(obj.id);
+        }
+
+        // 全ての登録されたオブジェクトを表示する
+        function displayObjects() {
+            for (var i = 0; i < list.length; i++) {
+                list[i].display(context);
+            }
+        }
+
+        // 全ての登録されたオブジェクトを動かす
+        function moveObjects() {
+            for (var i = 0; i < list.length; i++) {
+                list[i].move();
+            }
+        }
+
+        function movehandler(event) {
+            mouseX = event.offsetX;
+            mouseY = event.offsetY;
+        }
+
+        // "add user" ボタンをおしたとき
+        // 指定されたテキストを持つ
+        // テキストオブジェクトを追加する
+        function addText() {
+            console.log(list);
+            var txt = document.getElementById("txt").value;
+            var number = document.getElementById("number").value;
+            number = Number(number);
+            for (var i = 0; i < number; i++) {
+                if (txt != "") {
+                    addObject(new textObject(txt, 100 + i*2, 200 + i*2));
+                }
+            }
+        }
+
+        var x = 100;
+        var y = 20;
+        var dx = 1;
+        var dy = 1;
+
+        addObject(new textObject("Hello", 100, 20));
+        addObject(new textObject("World", 200, 20));
+        addObject(new textObject("りんご", 200, 120));
+
+        function draw() {
+            context.fillStyle = "rgb(128, 255, 128)";
+            context.fillRect(0, 0, canvas.width, canvas.height);
+
+            context.fillStyle = "rgb(0, 0, 0)";
+
+            moveObjects();
+            displayObjects();
+        }
+        setInterval(draw, 20);
+    </script>
+</body>
+
+</html>
