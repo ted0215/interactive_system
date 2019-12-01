@@ -44,7 +44,7 @@
 
             // オブジェクトの表示
             this.display = function (ctx) {
-                ctx.fillText(this.id.toString(10) + ":" + this.txt, this.x, this.y);
+                ctx.fillText(this.txt, this.x, this.y);
             }
 
             // 位置決め
@@ -55,13 +55,18 @@
 
             // 壁にぶつかると速度が乱数によって決められた値に変化する
             this.move = function () {
+                console.log("this.x", this.x);
+                console.log("mouseX", mouseX);
+                if (Math.abs(mouseX - this.x) < 15 && Math.abs(mouseY - this.y) < 15) {
+                    console.log("hoge");
+                    eraseObject(this);
+                }
                 this.x += this.dx;
                 this.y += this.dy;
                 if (this.x < 0) {
                     this.dx = Math.floor(Math.random() * 3) + 1;
 
                 } else if (this.x > canvas.width) {
-                    eraseObject(this);
                     console.log(list);
                     this.dx = -1 * (Math.floor(Math.random() * 3) + 1);
                 }
@@ -79,30 +84,36 @@
         }
 
         function eraseObject(obj) {
-            list.splice(obj.id, 1);
-            for (var i=0; i<list.length; i++) {
-                list[i].id -= 1;
-            }
-            console.log(obj.id);
+            // list.splice(obj.id, 1);
+            // for (var i=0; i<list.length; i++) {
+            //     list[i].id -= 1;
+            // }
+            // console.log(obj.id);
+            delete list[obj.id];
         }
 
         // 全ての登録されたオブジェクトを表示する
         function displayObjects() {
             for (var i = 0; i < list.length; i++) {
-                list[i].display(context);
+                if (list[i] != undefined) {
+                    list[i].display(context);
+                }
             }
         }
 
         // 全ての登録されたオブジェクトを動かす
         function moveObjects() {
             for (var i = 0; i < list.length; i++) {
-                list[i].move();
+                if (list[i] != undefined) {
+                    list[i].move();
+                }
             }
         }
 
         function movehandler(event) {
             mouseX = event.offsetX;
             mouseY = event.offsetY;
+
         }
 
         // "add user" ボタンをおしたとき
@@ -115,7 +126,7 @@
             number = Number(number);
             for (var i = 0; i < number; i++) {
                 if (txt != "") {
-                    addObject(new textObject(txt, 100 + i*2, 200 + i*2));
+                    addObject(new textObject(txt, 100 + i * 2, 200 + i * 2));
                 }
             }
         }
