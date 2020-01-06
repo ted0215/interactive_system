@@ -2,27 +2,51 @@
 <html lang="ja">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Ajaxについて</title>
+    <!-- BootstrapのCSS読み込み -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <!-- jQuery読み込み -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- BootstrapのJS読み込み -->
+    <script src="js/bootstrap.min.js"></script>
     <title>Ajaxチュートリアル</title>
 </head>
 
 <body>
-    <h1>Ajaxチュートリアル</h1>
+    <h1>Ajaxでプチアプリを開発してみよう</h1>
     <div>
         <h2>Ajaxとは</h2>
-        <p>Ajaxとは〜〜</p>
+        <p>Ajaxについては、
+            <a href="https://wa3.i-3-i.info/word12672.html">このサイト</a>
+            を参考にするとわかりやすいので、まずは見てください。
+        </p>
+        <p>基本的には、↑のサイトにも書いてあるように、
+            <span style="font-weight: bold">JavaScriptを使って非同期通信をするんだなあ</span>
+            という風に理解できていれば問題ないです。
+        </p>
+        <p>しかし、そもそも非同期通信をイメージできないと、Ajaxの実装も理解しにくいと思います。</p>
+        <p>そのため、本サイトでも非同期通信については簡単に説明していこうと思います。</p>
+        <h3>非同期通信とは</h3>
+        <img src="https://qiita-user-contents.imgix.net/https%3A%2F%2Fqiita-image-store.s3.amazonaws.com%2F0%2F149318%2Ffaa707a6-a504-4453-0ea8-3e1c0e8dbc81.gif?ixlib=rb-1.2.2&auto=compress%2Cformat&gif-q=60&s=8d9b3e86019597db05e8d700c35ab573"
+            alt="非同期通信の例" width="400">
+        <p>↑が非同期通信の例です。</p>
+        <p>ざっくり説明すると、画面の遷移のない通信のことです。</p>
+        <p>よく色々なサイトで見ると思いますが、画面が白くなって、画面が遷移するようなものは逆に同期通信と言います。</p>
     </div>
     <div>
-        <h2>Ajaxの基本的な書き方</h2>
+        <h2>Ajaxの基本的な実装方法</h2>
         <p>Ajaxは基本的にはこう書きます〜〜</p>
     </div>
     <div>
         <h2>実際にAjaxを使って，百人一首アプリを作ってみよう</h2>
-        <p>百人一首アプリイメージ</p>
-        <p>百人一首アプリチュートリアル</p>
+        <h3>百人一首アプリ完成イメージ</h3>
+        <img src="https://i.gyazo.com/d1aa09221df162d79d8f0ca949728291.gif" alt="百人一首アプリ完成イメージ" width="562" /></a>
+        <h3>百人一首アプリチュートリアル</h3>
     </div>
 </body>
+<script src="./app_sample.js"></script>
 
 </html>
